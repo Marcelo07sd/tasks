@@ -5,10 +5,13 @@ from datetime import datetime, timezone, timedelta
 
 app = Flask(__name__)
 
-# Obtener la URL de la base de datos desde Render
-url_internal = os.getenv("DATABASE_URL", "postgresql://flask_postgres_j4of_user:kWTVfzGKg8QNGXMhU6GtnY9H8cCflqpc@dpg-cv6tjadumphs738d9nf0-a/flask_postgres_j4of")
+# Obtener la URL de la base de datos desde la variable de entorno
+url_internal = os.getenv("DATABASE_URL")
 
-# Reemplazar 'postgres://' por 'postgresql://' (Render usa un formato diferente)
+if not url_internal:
+    raise ValueError("No se encontró la variable de entorno DATABASE_URL")
+
+# Reemplazar 'postgres://' por 'postgresql://' para compatibilidad con SQLAlchemy
 if url_internal.startswith("postgres://"):
     url_internal = url_internal.replace("postgres://", "postgresql://", 1)
 
