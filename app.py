@@ -59,7 +59,3 @@ def delete(id):
     task = Task.query.filter_by(id=int(id)).delete()
     db.session.commit()
     return redirect(url_for('home'))
-
-
-if __name__ == '__main__':
-    app.run(debug = True, port='8080')
