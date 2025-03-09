@@ -1,0 +1,51 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Booststrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css">
+    <!-- FONTS --> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- Main css -->
+    <link rel="stylesheet" href="/static/main.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class = "display-4 text-center title mt-4">Tasks App</h1>
+
+        <div class="row">
+            <div class="col"> <!--522*190-->
+                <div class="card fixed-width my-auto">
+                    <div class="card-header">
+                        <form action="/create-task" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="content" placeholder="task" class="form-control" autofocus>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        {% if tasks[0] %}
+                        <h2 class="text-center"> {{tasks[0].fecha_creacion.strftime("%d-%m-%Y")}} ({{dias_semana[tasks[0].fecha_creacion.strftime("%A")]}})</h2>
+                        {% endif %}
+                        
+                        {% for task in tasks %}
+                            <li class="content"><span class="{% if task.done  %} done {% endif %}">{{task.content}}</span></li>
+                            <a class="btn btn-warning btn-sm radius" href="{{url_for('edit', id=task.id)}}">Edit</a>
+                            <a class="btn btn-success btn-sm radius" href="/done/{{task.id}}">Done</a>
+                            <a class="btn btn-danger btn-sm radius" href="/delete/{{task.id}}">Delete</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

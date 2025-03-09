@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Booststrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css">
+    <!-- FONTS --> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- Main css -->
+    <link rel="stylesheet" href="/static/main.css">
+
+    <title>edit</title>
+</head>
+<body>
+
+    <main class="container p-4">
+        <h1 class = "display-4 text-center title mt-4"> Update</h1>
+
+        <div class="row">
+            <div class="col"> <!--522*190-->
+                <div class="card-header">
+                    <form action="{{url_for('edit', id = task.id)}}" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="content-edit" placeholder="task" class="form-control" id="miInput" value="{{task.content}}" autofocus>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="/static/scripts.js"></script>
+    
+</body>
+</html>

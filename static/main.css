@@ -1,0 +1,33 @@
+body {
+    background: #E0EAFC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.container {
+    max-width: 600px;
+}
+
+.title {
+    font-family: "Lobster", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+.radius {
+    border-radius: 1rem;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #cfcfcf;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+.content {
+    font-size: 1.2rem;
+}
+
