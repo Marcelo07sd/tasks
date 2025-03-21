@@ -2,9 +2,18 @@ from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+# Obtener la URL de la base de datos desde la variable de entorno
+url_internal = os.getenv("DATABASE_URL")
 
+if not url_internal:
+    raise ValueError("No se encontró la variable de entorno DATABASE_URL")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
+# Reemplazar 'postgres://' por 'postgresql://' para compatibilidad con SQLAlchemy
+if url_internal.startswith("postgres://"):
+    url_internal = url_internal.replace("postgres://", "postgresql://", 1)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = url_internal
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # Definir el modelo
 class Task(db.Model):
