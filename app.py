@@ -1,31 +1,16 @@
-import os
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime, timezone, timedelta
 
 app = Flask(__name__)
 
-# Obtener la URL de la base de datos desde la variable de entorno
-url_internal = os.getenv("DATABASE_URL")
 
-if not url_internal:
-    raise ValueError("No se encontró la variable de entorno DATABASE_URL")
-
-# Reemplazar 'postgres://' por 'postgresql://' para compatibilidad con SQLAlchemy
-if url_internal.startswith("postgres://"):
-    url_internal = url_internal.replace("postgres://", "postgresql://", 1)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = url_internal
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clientes.db'
 db = SQLAlchemy(app)
-
 # Definir el modelo
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200))
     done = db.Column(db.Boolean)
-    fecha_creacion = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc) + timedelta(hours=-5))
 
 # Crear la tabla en la base de datos
 with app.app_context():
@@ -34,11 +19,8 @@ with app.app_context():
 @app.route('/')
 def home():
     tasks = Task.query.all()
-    dias_semana = {
-        "Monday": "Lunes", "Tuesday": "Martes", "Wednesday": "Miércoles",
-        "Thursday": "Jueves", "Friday": "Viernes", "Saturday": "Sábado", "Sunday": "Domingo"
-    }
-    return render_template('index.html', tasks=tasks, dias_semana=dias_semana)
+    
+    return render_template('index.html', tasks=tasks)
 
 @app.route('/create-task', methods=['POST'])
 def create():
@@ -76,3 +58,5 @@ def delete(id):
         db.session.commit()
     return jsonify({ 'id': str(id)})
 
+
+        
