@@ -14,38 +14,49 @@
     <title>Document</title>
 </head>
 <body>
-    <main class="container p-4">
+    <main class="container p-4 overlay">
         <h1 class = "display-4 text-center title mt-4">Tasks App</h1>
 
         <div class="row">
             <div class="col"> <!--522*190-->
                 <div class="card fixed-width my-auto">
                     <div class="card-header">
-                        <form action="/create-task" method="POST">
+                        <form id="form-cliente">
                             <div class="form-group">
-                                <input type="text" name="content" placeholder="task" class="form-control" autofocus>
+                                <input type="text" name="content" placeholder="task" class="form-control" id="content" autofocus>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block">
+                            <button type="submit" class="btn btn-primary btn-block" id="save">
                                 Save
                             </button>
                         </form>
                     </div>
-                    <div class="card-body">
-                        {% if tasks[0] %}
-                        <h2 class="text-center"> {{tasks[0].fecha_creacion.strftime("%d-%m-%Y")}} ({{dias_semana[tasks[0].fecha_creacion.strftime("%A")]}})</h2>
-                        {% endif %}
-                        
+                    <div id="lista-tareas" class="card-body">
                         {% for task in tasks %}
-                            <li class="content"><span class="{% if task.done  %} done {% endif %}">{{task.content}}</span></li>
-                            <a class="btn btn-warning btn-sm radius" href="{{url_for('edit', id=task.id)}}">Edit</a>
-                            <a class="btn btn-success btn-sm radius" href="/done/{{task.id}}">Done</a>
-                            <a class="btn btn-danger btn-sm radius" href="/delete/{{task.id}}">Delete</a>
+                            <div id="tarea-contenedor-{{task.id}}">
+                                <li class="content"><span id="span-{{task.id}}" class="{% if task.done  %} done {% endif %}">{{task.content}}</span></li>
+                                <a data-done-id="{{task.id}}" class="btn btn-success btn-sm radius boton-done" >done</a>
+                                <a data-edit-id="{{task.id}}" class="btn btn-warning btn-sm radius boton-edit">Edit</a>
+                                <a data-delete-id="{{task.id}}" class="btn btn-danger btn-sm radius boton-delete">Delete</a>
+                            </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-
     </main>
+    <div id="div-cliente-edit" class="container-edit">
+        <div class="container card-header">
+            <form id="form-cliente-edit">
+                <div class="form-group">
+                    <input type="text" name="content" placeholder="task" class="form-control" id="content-edit" autofocus>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="update">
+                    update
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="/static/script.js"></script>
 </body>
 </html>
