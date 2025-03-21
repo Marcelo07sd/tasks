@@ -31,3 +31,32 @@ h2 {
     font-size: 1.2rem;
 }
 
+/* Fondo borroso y oscurecido */
+.overlay {
+    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2); /* Menos opaco */
+    backdrop-filter: blur(5px); /* Más desenfoque */
+    -webkit-backdrop-filter: blur(5px); /* Para Safari */
+    z-index: 999;
+    display: block; /* Oculto por defecto */
+}
+
+/* Modal centrado */
+.container-edit {
+    width: 600px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none; /* Oculto por defecto */
+}
+
